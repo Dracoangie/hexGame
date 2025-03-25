@@ -9,7 +9,9 @@ public class HexGrid : MonoBehaviour
     public int width = 10;
     public int height = 10;
     public float hexSize = 1f;
+    public RadialMenu radialMenu;
     private readonly Dictionary<Vector2Int, Hex> hexMap = new();
+    private HexContentDatabase hexData;
 
     void Start()
     {
@@ -34,7 +36,7 @@ public class HexGrid : MonoBehaviour
                 GameObject hex = Instantiate(hexPrefab, new Vector3(xPos, 0, zPos), Quaternion.identity);
                 hex.name = $"Hex_{col}_{row}";
                 hex.transform.parent = this.transform;
-                hex.GetComponent<Hex>().InitializeHex(new Vector2Int(col, row), HexType.Mountain, false, this);
+                hex.GetComponent<Hex>().InitializeHex(new Vector2Int(col, row), HexType.Grass, false, this);
                 hexMap[new Vector2Int(col, row)] = hex.GetComponent<Hex>();
             }
         }
@@ -126,4 +128,10 @@ public class HexGrid : MonoBehaviour
     {
         StartCoroutine(ShockWaveCoroutine(startCoords));
     }
+
+	public void NewHex(Vector2Int coords, HexType hexType)
+	{
+		if(hexMap.ContainsKey(coords))
+			hexMap[coords].SetNewPanel(hexType);
+	}
 }

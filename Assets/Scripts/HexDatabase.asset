@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92054b31ddd42f64b8bca894fcd7364a, type: 3}
+  m_Name: HexDatabase
+  m_EditorClassIdentifier: 
+  categories:
+  - categoryName: Construction
+    entries:
+    - id: house
+      displayName: House
+      icon: {fileID: 0}
+      prefab: {fileID: 0}
+      description: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+  - categoryName: Decor
+    entries:
+    - id: light
+      displayName: 
+      icon: {fileID: 0}
+      prefab: {fileID: 0}
+      description: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+  - categoryName: Floor
+    entries:
+    - id: Grass
+      displayName: 
+      icon: {fileID: 0}
+      prefab: {fileID: 0}
+      description: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - id: Dirt
+      displayName: 
+      icon: {fileID: 0}
+      prefab: {fileID: 0}
+      description: 
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - id: Sand
+      displayName: 
+      icon: {fileID: 0}
+      prefab: {fileID: 0}
+      description: 
+      color: {r: 0, g: 0, b: 0, a: 0}
