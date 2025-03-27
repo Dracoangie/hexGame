@@ -27,8 +27,8 @@ public class HexGrid : MonoBehaviour
         {
             for (int col = 0; col < width; col++)
             {
-                float xPos = col * xOffset + (gameObject.transform.position.x - (height * xOffset) / 2);
-                float zPos = row * zOffset + (gameObject.transform.position.z - (width * xOffset) / 2);
+                float xPos = col * xOffset + (gameObject.transform.position.x - (width * xOffset) / 2);
+                float zPos = row * zOffset + (gameObject.transform.position.z - (height * xOffset) / 2);
 
                 if (col % 2 == 1)
                     zPos += zOffset * 0.5f;
@@ -43,34 +43,7 @@ public class HexGrid : MonoBehaviour
         hexMap[new Vector2Int(width / 2, height/2)].SetActive(true);
     }
 
-    private List<Vector2Int> GetHexNeighbors(Vector2Int coords)
-    {
-        Vector2Int[] evenOffsets = new Vector2Int[]
-        {
-        new (+1,  0), new (-1,  0),
-        new ( 0, +1), new ( 0, -1),
-        new (-1, -1), new (+1, -1)
-        };
-
-        Vector2Int[] oddOffsets = new Vector2Int[]
-        {
-        new (+1,  0), new (-1,  0),
-        new ( 0, +1), new ( 0, -1),
-        new (-1, +1), new (+1, +1)
-        };
-
-        Vector2Int[] offsets = coords.x % 2 == 0 ? evenOffsets : oddOffsets;
-        List<Vector2Int> neighbors = new();
-
-        foreach (var offset in offsets)
-        {
-            neighbors.Add(coords + offset);
-        }
-
-        return neighbors;
-    }
-
-    // 
+    // check close ones
     public void CheckIfCloseToActive(Hex hex)
     {
         List<Vector2Int> neighbors = GetHexNeighbors(hex.hexCoordinates);
@@ -85,7 +58,39 @@ public class HexGrid : MonoBehaviour
         }
     }
 
+    private List<Vector2Int> GetHexNeighbors(Vector2Int coords)
+    {
+        Vector2Int[] evenOffsets = new Vector2Int[]
+        {
+        new (+1,  0), new (-1,  0),
+        new ( 0, +1), new ( 0, -1),
+        new (-1, -1), new (+1, -1)
+        };
+
+        Vector2Int[] oddOffsets = new Vector2Int[]
+        {
+            new (+1,  0), new (-1,  0),
+            new ( 0, +1), new ( 0, -1),
+            new (-1, +1), new (+1, +1)
+        };
+
+        Vector2Int[] offsets = coords.x % 2 == 0 ? evenOffsets : oddOffsets;
+        List<Vector2Int> neighbors = new();
+
+        foreach (var offset in offsets)
+        {
+            neighbors.Add(coords + offset);
+        }
+
+        return neighbors;
+    }
+
     // move all the hex like a wave
+    public void ShockWave(Vector2Int startCoords)
+    {
+        StartCoroutine(ShockWaveCoroutine(startCoords));
+    }
+
     private IEnumerator ShockWaveCoroutine(Vector2Int startCoords)
     {
         if (!hexMap.ContainsKey(startCoords))
@@ -123,12 +128,7 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-
-    public void ShockWave(Vector2Int startCoords)
-    {
-        StartCoroutine(ShockWaveCoroutine(startCoords));
-    }
-
+    // set new Hex active on map
 	public void NewHex(Vector2Int coords, HexType hexType)
 	{
 		if(hexMap.ContainsKey(coords))
