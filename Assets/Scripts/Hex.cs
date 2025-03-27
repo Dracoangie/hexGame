@@ -45,7 +45,7 @@ public class Hex : MonoBehaviour
 
 	void OnMouseEnter()
 	{
-		if (isClose || isActive)
+        if (isClose || isActive)
 		{
 			outline.enabled = true;
 			UpDown(0.2f, 0.1f);
@@ -54,7 +54,10 @@ public class Hex : MonoBehaviour
 
 	void OnMouseUp()
 	{
-		if (isClose || isActive)
+        if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(-1))
+            return;
+
+        if (isClose || isActive)
 		{
 			outline.enabled = true;
 			UpDown(0.2f, 0.1f);
@@ -79,16 +82,16 @@ public class Hex : MonoBehaviour
 		switch (groundType)
 		{
 			case HexType.Grass:
-				color = new Color32(0xC7, 0xDF, 0x4D, 0xFF); // C7DF4D
+				color = new Color32(0xC7, 0xDF, 0x4D, 0xFF);
 				break;
 			case HexType.Sand:
-				color = new Color32(0xFE, 0xE4, 0x7E, 0xFF); // FEE47E
+				color = new Color32(0xFE, 0xE4, 0x7E, 0xFF);
 				break;
 			case HexType.Mountain:
-				color = new Color32(0xF2, 0x95, 0x44, 0xFF); // F29544
+				color = new Color32(0xF2, 0x95, 0x44, 0xFF);
 				break;
 			case HexType.Forest:
-				color = new Color32(0x5B, 0x6F, 0xAB, 0xFF); // 5B6FAB
+				color = new Color32(0x5B, 0x6F, 0xAB, 0xFF);
 				break;
 			default:
 				color = Color.white;
@@ -150,7 +153,6 @@ public class Hex : MonoBehaviour
 	}
 
 	// New panel
-
 	public void SetNewPanel(HexType hexType)
 	{
 		SetActive(true);
